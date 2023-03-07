@@ -42,7 +42,7 @@
                                     <RowDefinition Height="1*" />
                                 </Grid.RowDefinitions>
                                 <Label Text="{Binding ArtikelName}" Margin="5"/>
-                                <Label Text="{Binding Betrag , StringFormat={}{0} CHF}" Grid.Column="1" HorizontalTextAlignment="End" Margin="5,5,10,5"/>
+                                <Label Text="{Binding Betrag , StringFormat={}{0} CHF}" Grid.Column="1" HorizontalTextAlignment="End" FontAttributes="Bold" Margin="5,5,10,5"/>
                                 <Label Text="{Binding Datum, StringFormat='{}{0:MM/dd/yyyy}'}" FontSize="8" Margin="5,0,0,0" Grid.Row="1"></Label>
                             </Grid>
                         </ViewCell>
