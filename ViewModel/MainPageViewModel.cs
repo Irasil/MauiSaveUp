@@ -37,8 +37,15 @@ namespace MauiSaveUpDesktop.ViewModel
 
         public void Get()
         {
-            nah = Database.Database.Get();
+            nah = Database.Database.Get();            
 
         }
+        //public void FarmateDate()
+        //{
+        //    foreach (var item in nahrungList)
+        //    {
+        //        item.Datum = item.Datum.ToString("dd.MM.yyyy");
+        //    }
+        //}
     }
 }
