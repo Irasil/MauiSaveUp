@@ -7,52 +7,40 @@
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
-            VerticalOptions="Center">
+            >
 
             <Image
-                Source="dotnet_bot.png"
+                Source="logo.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+           
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding Kategorie}"/>
 
-            <ListView ItemsSource="{Binding nah, Mode=TwoWay}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*" />
-                                    <RowDefinition Height="1*" />
-                                </Grid.RowDefinitions>
-                                <Label Text="{Binding ArtikelName}" Margin="5"/>
-                                <Label Text="{Binding Betrag , StringFormat={}{0} CHF}" Grid.Column="1" HorizontalTextAlignment="End" FontAttributes="Bold" Margin="5,5,10,5"/>
-                                <Label Text="{Binding Datum, StringFormat='{}{0:MM/dd/yyyy}'}" FontSize="8" Margin="5,0,0,0" Grid.Row="1"></Label>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
 
+
+
+
+
+            <Label Text="Artikelname" />
+
+            <Entry Text="{Binding Save.ArtikelName, Mode=TwoWay}"
+                   Keyboard="Chat"
+                   Placeholder="Name" />
+            <Label Text="Preis" />
+
+            <Entry Text="{Binding Save.Betrag, Mode=OneWayToSource}"
+                   Keyboard="Numeric"
+                   Placeholder="Preis" />
             <Button
-                x:Name="CounterBtn"
-                Text="Click me"
+                x:Name="ErfasseneBtn"
+                Text="Erfassen"
+                Command="{Binding _addCommand}" />
+             <Button
+                x:Name="ResultateBtn"
+                Text="Resultate"
                 Command="{Binding _getCommand}" />
 
         </VerticalStackLayout>
