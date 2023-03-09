@@ -21,7 +21,7 @@
         </Picker>
 
         <Border Margin="10">
-        <ListView ItemsSource="{Binding Save, Mode=TwoWay}">
+        <ListView ItemsSource="{Binding SaveList, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

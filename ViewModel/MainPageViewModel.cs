@@ -1,10 +1,5 @@
 ﻿using MauiSaveUpDesktop.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MauiSaveUpDesktop.Views;
+
 
 namespace MauiSaveUpDesktop.ViewModel
 {
@@ -62,7 +57,7 @@ namespace MauiSaveUpDesktop.ViewModel
                 {
                     _savesList = value;
                     OnPropertyChanged(nameof(Saves));
-                }                  
+                }
             }
         }
 
@@ -100,14 +95,16 @@ namespace MauiSaveUpDesktop.ViewModel
         {
             Save.Kategorie = SelectedItem;
             Save.Datum = DateTime.Now.Date;
-            Saves lol = new();
-            lol = Save;
+            Database.Database.Add(Save);
+            Task.Delay(2000);
+            SaveList = Database.Database.Get();
+            Shell.Current.GoToAsync("Resultate");
         }
 
         public void Get()
         {
             SaveList = Database.Database.Get();
-            Shell.Current.GoToAsync("Resultate");  
+            Shell.Current.GoToAsync("Resultate");
         }
 
         public void Back()

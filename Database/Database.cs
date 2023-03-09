@@ -29,13 +29,18 @@ namespace MauiSaveUpDesktop.Database
             }
             catch { return null; }
         }
-        public static void Add(Saves nahrung)
+        public static async void Add(Saves nahrung)
         {
-            using (var client = new HttpClient())
+            try
+            {
+                using (var client = new HttpClient())
             {
                 client.Timeout = TimeSpan.FromSeconds(900);
-                var content = client.PostAsJsonAsync(_dbPath, nahrung);
+                var content = await client.PostAsJsonAsync(_dbPath, nahrung);
+                    
             }
+            }
+            catch (Exception ex) { }
         }
     }
 }
