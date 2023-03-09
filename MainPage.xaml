@@ -14,7 +14,7 @@
                 HeightRequest="200"
                 HorizontalOptions="Center" />
 
-            <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding Kategorie}"/>
+            <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding KategorieErfassen}"/>
 
             <Label Text="Artikelname" />
 

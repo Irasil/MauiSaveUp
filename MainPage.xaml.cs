@@ -8,13 +8,14 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         BindingContext = SharedData.Instance.Data;
-        MyPicker.SelectedIndex = 0;
+        //MyPicker.SelectedIndex = 0;
     }
     protected override void OnAppearing()
     {
         base.OnAppearing();
         Betrag.Text = null;
         Name.Text = string.Empty;
+        MyPicker.SelectedIndex = 0;
     }
 }
 

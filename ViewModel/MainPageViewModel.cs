@@ -65,20 +65,37 @@ namespace MauiSaveUpDesktop.ViewModel
             }
         }
 
-        public string[] _kategorie { get; set; } = new string[]
+        public string[] _kategorieErfassen { get; set; } = new string[]
        {
             "Nahrung",
             "Ausgang",
             "Elektronik"
        };
 
-        public string[] Kategorie
+        public string[] KategorieErfassen
         {
-            get { return _kategorie; }
+            get { return _kategorieErfassen; }
             set
             {
-                _kategorie = value;
-                OnPropertyChanged(nameof(Kategorie));
+                _kategorieErfassen = value;
+                OnPropertyChanged(nameof(KategorieErfassen));
+            }
+        }
+        public string[] _kategorieResultate { get; set; } = new string[]
+      {
+            "Alles",
+            "Nahrung",
+            "Ausgang",
+            "Elektronik"
+      };
+
+        public string[] KategorieResultate
+        {
+            get { return _kategorieResultate; }
+            set
+            {
+                _kategorieResultate = value;
+                OnPropertyChanged(nameof(KategorieResultate));
             }
         }
 
