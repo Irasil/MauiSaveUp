@@ -35,6 +35,31 @@ namespace MauiSaveUpDesktop.Database
             }
             catch { return null; }
         }
+
+        public List<Saves> GetByKategorie(string kategorie)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(900);
+                    var content = client.GetStringAsync(_dbPath).Result;
+                    var list = JsonConvert.DeserializeObject<List<Saves>>(content);
+
+                    List<Saves> saves = new();
+                    foreach (var item in list)
+                    {
+                        if (item.Kategorie == kategorie)
+                        {
+                            saves.Add(item);
+                        }
+                    }
+                    return saves;
+                }
+
+            }
+            catch { return null; }
+        }
         public async Task<Saves> Add(Saves nahrung)
         {
 

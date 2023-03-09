@@ -6,7 +6,7 @@
     <VerticalStackLayout Spacing="25"
             Padding="30,0">
 
-        <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate}"/>
+        <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}"/>
 
         <Border>
             <ScrollView HeightRequest="400" >

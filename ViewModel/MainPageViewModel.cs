@@ -94,6 +94,7 @@ namespace MauiSaveUpDesktop.ViewModel
             get { return _kategorieResultate; }
             set
             {
+                
                 _kategorieResultate = value;
                 OnPropertyChanged(nameof(KategorieResultate));
             }
@@ -138,10 +139,26 @@ namespace MauiSaveUpDesktop.ViewModel
             Shell.Current.GoToAsync("..");
         }
 
-        public void ResetEntities()
+
+        public void PickerChanged()
         {
-            Save.Betrag = 0;
-            Save.ArtikelName = "";
+            switch (_kategorieResultate.ToString())
+            {
+                case "Alles":
+                    Get();
+                    break;
+                case "Nahrung":
+                    SaveList = database.GetByKategorie("Nahrung");
+                    break;
+                case "Ausgang":
+                    SaveList = database.GetByKategorie("Ausgang");
+                    break;
+                case "Elektronik":
+                    SaveList = database.GetByKategorie("Elektronik");
+                    break;
+            }
+           
+            
         }
 
 
