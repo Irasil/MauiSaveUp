@@ -6,11 +6,11 @@
     <VerticalStackLayout Spacing="25"
             Padding="30,0">
 
-        <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}"/>
+        <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>
 
         <Border>
             <ScrollView HeightRequest="400" >
-        <ListView x:Name="ListView" ItemsSource="{Binding SaveList, Mode=TwoWay}">
+        <ListView x:Name="ListView" ItemsSource="{Binding SaveList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

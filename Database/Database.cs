@@ -68,7 +68,6 @@ namespace MauiSaveUpDesktop.Database
                 var jsonContent = JsonConvert.SerializeObject(nahrung);
                 var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 var content = await client.PostAsync(_dbPath, stringContent);
-                //Thread.Sleep(2000);
                 content.EnsureSuccessStatusCode();
                 return null;
             }

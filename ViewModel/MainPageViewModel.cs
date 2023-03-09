@@ -1,7 +1,6 @@
 ﻿using MauiSaveUpDesktop.Models;
 using MauiSaveUpDesktop.Database;
-
-
+using System.Collections.ObjectModel;
 
 namespace MauiSaveUpDesktop.ViewModel
 {
@@ -48,11 +47,14 @@ namespace MauiSaveUpDesktop.ViewModel
                 {
                     _selectedItem = value;
                     OnPropertyChanged(nameof(SelectedItem));
+                    //PickerChanged();
+
+
                 }
             }
         }
-        public List<Saves> _savesList { get; set; }
-        public List<Saves> SaveList
+        public ObservableCollection<Saves> _savesList { get; set; }
+        public ObservableCollection<Saves> SaveList
         {
             get { return _savesList; }
             set
@@ -60,7 +62,7 @@ namespace MauiSaveUpDesktop.ViewModel
                 if (_savesList != value)
                 {
                     _savesList = value;
-                    OnPropertyChanged(nameof(Saves));
+                    OnPropertyChanged(nameof(SaveList));
                 }
             }
         }
@@ -91,12 +93,31 @@ namespace MauiSaveUpDesktop.ViewModel
 
         public string[] KategorieResultate
         {
-            get { return _kategorieResultate; }
+            get
+            {
+                PickerChanged();
+                return _kategorieResultate;
+            }
             set
             {
-                
                 _kategorieResultate = value;
                 OnPropertyChanged(nameof(KategorieResultate));
+            }
+        }
+
+        private int _selectedIndex;
+        
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set
+            {
+                if (_selectedIndex != value)
+                {
+                    _selectedIndex = value;
+                    OnPropertyChanged(nameof(SelectedIndex));
+                    // Do something with the new selection
+                }
             }
         }
 
@@ -131,30 +152,35 @@ namespace MauiSaveUpDesktop.ViewModel
 
         public void Get()
         {
-            SaveList = database.Get();
+            List<Saves> saves = database.Get();
+            SaveList = new ObservableCollection<Saves>(saves);
         }
 
         public void Back()
-        {            
+        {
+            int lol = SelectedIndex;
             Shell.Current.GoToAsync("..");
         }
 
 
         public void PickerChanged()
         {
-            switch (_kategorieResultate.ToString())
+            switch (_selectedItem)
             {
                 case "Alles":
                     Get();
                     break;
                 case "Nahrung":
-                    SaveList = database.GetByKategorie("Nahrung");
+                    List<Saves> nahr = database.GetByKategorie("Nahrung");
+                    SaveList = new ObservableCollection<Saves>(nahr);
                     break;
                 case "Ausgang":
-                    SaveList = database.GetByKategorie("Ausgang");
+                    List<Saves> aus = database.GetByKategorie("Ausgang");
+                    SaveList = new ObservableCollection<Saves>(aus);
                     break;
                 case "Elektronik":
-                    SaveList = database.GetByKategorie("Elektronik");
+                    List<Saves> ele = database.GetByKategorie("Elektronik");
+                    SaveList = new ObservableCollection<Saves>(ele);
                     break;
             }
            
