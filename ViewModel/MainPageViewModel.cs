@@ -162,7 +162,6 @@ namespace MauiSaveUpDesktop.ViewModel
             Shell.Current.GoToAsync("..");
         }
 
-
         public void PickerChanged()
         {
             switch (_selectedItem)
