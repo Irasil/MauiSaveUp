@@ -6,8 +6,7 @@
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
-            Padding="30,0"
-            >
+            Padding="30,0">
 
             <Image
                 Source="logo.png"
@@ -15,33 +14,26 @@
                 HeightRequest="200"
                 HorizontalOptions="Center" />
 
-           
-
             <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding Kategorie}"/>
-
-
-
-
-
 
             <Label Text="Artikelname" />
 
-            <Entry Text="{Binding Save.ArtikelName, Mode=TwoWay}"
+            <Entry x:Name="Name" Text="{Binding Save.ArtikelName, Mode=TwoWay}"
                    Keyboard="Chat"
                    Placeholder="Name" />
             <Label Text="Preis" />
 
-            <Entry Text="{Binding Save.Betrag, Mode=OneWayToSource}"
+            <Entry x:Name="Betrag" Text="{Binding Save.Betrag, Mode=OneWayToSource}"
                    Keyboard="Numeric"
                    Placeholder="Preis" />
             <Button
                 x:Name="ErfasseneBtn"
                 Text="Erfassen"
                 Command="{Binding _addCommand}" />
-             <Button
+            <Button
                 x:Name="ResultateBtn"
                 Text="Resultate"
-                Command="{Binding _getCommand}" />
+                Command="{Binding _getToResultCommand}" />
 
         </VerticalStackLayout>
     </ScrollView>

@@ -21,7 +21,8 @@
         </Picker>
 
         <Border Margin="10">
-        <ListView ItemsSource="{Binding SaveList, Mode=TwoWay}">
+            <ScrollView HeightRequest="500" >
+        <ListView x:Name="ListView" ItemsSource="{Binding SaveList, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -50,6 +51,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+            </ScrollView>
         </Border>
         <Grid>
             <Grid.ColumnDefinitions>

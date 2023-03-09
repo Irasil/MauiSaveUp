@@ -6,15 +6,21 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text.Json;
+using System.Threading.Tasks;
+
 
 namespace MauiSaveUpDesktop.Database
 {
-    public class Database
+    public class Databases
     {
-        static string _dbPath = "https://saveup-app-20230308224317.whitebay-b0072808.eastus.azurecontainerapps.io/SaveUp";
+        public string _dbPath = "https://saveup-app-20230308224317.whitebay-b0072808.eastus.azurecontainerapps.io/SaveUp";
 
 
-        public static List<Saves> Get()
+        public List<Saves> Get()
         {
             try
             {
@@ -29,18 +35,21 @@ namespace MauiSaveUpDesktop.Database
             }
             catch { return null; }
         }
-        public static async void Add(Saves nahrung)
+        public async Task<Saves> Add(Saves nahrung)
         {
-            try
+
+            using (var client = new HttpClient())
             {
-                using (var client = new HttpClient())
-            {
-                client.Timeout = TimeSpan.FromSeconds(900);
-                var content = await client.PostAsJsonAsync(_dbPath, nahrung);
-                    
+                var jsonContent = JsonConvert.SerializeObject(nahrung);
+                var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var content = await client.PostAsync(_dbPath, stringContent);
+                //Thread.Sleep(2000);
+                content.EnsureSuccessStatusCode();
+                return null;
             }
-            }
-            catch (Exception ex) { }
+
         }
+
+
     }
 }

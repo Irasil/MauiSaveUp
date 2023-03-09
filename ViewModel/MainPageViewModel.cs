@@ -1,10 +1,13 @@
 ﻿using MauiSaveUpDesktop.Models;
+using MauiSaveUpDesktop.Database;
+
 
 
 namespace MauiSaveUpDesktop.ViewModel
 {
     public class SharedData
     {
+        
         private static readonly Lazy<SharedData> lazy = new(() => new SharedData());
 
         public static SharedData Instance => lazy.Value;
@@ -19,6 +22,7 @@ namespace MauiSaveUpDesktop.ViewModel
 
     public class MainPageViewModel : ViewModelBase
     {
+        public Databases database = new Databases();
         public Saves _save = new();
         public Saves Save
         {
@@ -63,7 +67,6 @@ namespace MauiSaveUpDesktop.ViewModel
 
         public string[] _kategorie { get; set; } = new string[]
        {
-            "Alles",
             "Nahrung",
             "Ausgang",
             "Elektronik"
@@ -80,36 +83,48 @@ namespace MauiSaveUpDesktop.ViewModel
         }
 
         public Command _getCommand { get; set; }
+        public Command _getToResultCommand { get; set; }
         public Command _backCommand { get; set; }
         public Command _addCommand { get; set; }
 
 
         public MainPageViewModel()
         {
-            _getCommand = new Command(async () => Get());
-            _backCommand = new Command(async () => Back());
-            _addCommand = new Command(async () => Add());
+            _getToResultCommand = new Command(GetToResult);
+            _getCommand = new Command(Get);
+            _backCommand = new Command(Back);
+            _addCommand = new Command(Add);
         }
 
         public async void Add()
         {
             Save.Kategorie = SelectedItem;
             Save.Datum = DateTime.Now.Date;
-            Database.Database.Add(Save);
-            Task.Delay(2000);
-            SaveList = Database.Database.Get();
+            await database.Add(Save);
+            
+            GetToResult();
+        }
+
+        public void GetToResult()
+        {
+            Get();
             Shell.Current.GoToAsync("Resultate");
         }
 
         public void Get()
         {
-            SaveList = Database.Database.Get();
-            Shell.Current.GoToAsync("Resultate");
+            SaveList = database.Get();
         }
 
         public void Back()
+        {            
+            Shell.Current.GoToAsync("..");
+        }
+
+        public void ResetEntities()
         {
-            Shell.Current.GoToAsync("MainPage");
+            Save.Betrag = 0;
+            Save.ArtikelName = "";
         }
 
 
