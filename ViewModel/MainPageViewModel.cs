@@ -181,6 +181,7 @@ namespace MauiSaveUpDesktop.ViewModel
                     List<Saves> ele = database.GetByKategorie("Elektronik");
                     SaveList = new ObservableCollection<Saves>(ele);
                     break; 
+
             }
            
             
