@@ -1,12 +1,13 @@
 ﻿using MauiSaveUpDesktop.Models;
 using MauiSaveUpDesktop.Database;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 namespace MauiSaveUpDesktop.ViewModel
 {
     public class SharedData
     {
-        
+
         private static readonly Lazy<SharedData> lazy = new(() => new SharedData());
 
         public static SharedData Instance => lazy.Value;
@@ -22,6 +23,7 @@ namespace MauiSaveUpDesktop.ViewModel
     public class MainPageViewModel : ViewModelBase
     {
         public Databases database = new Databases();
+        List<Saves> SaveListTemp = new List<Saves>();
         public Saves _save = new();
         public Saves Save
         {
@@ -106,7 +108,7 @@ namespace MauiSaveUpDesktop.ViewModel
         }
 
         private int _selectedIndex;
-        
+
         public int SelectedIndex
         {
             get => _selectedIndex;
@@ -121,10 +123,27 @@ namespace MauiSaveUpDesktop.ViewModel
             }
         }
 
+        private double _betragTotal;
+        public double BetragTotal
+        {
+            get { return _betragTotal; }
+            set
+            {
+                if (_betragTotal != value)
+                {
+                    _betragTotal = value;
+                    OnPropertyChanged(nameof(BetragTotal));
+                }
+            }
+        }
+
         public Command _getCommand { get; set; }
         public Command _getToResultCommand { get; set; }
         public Command _backCommand { get; set; }
         public Command _addCommand { get; set; }
+        public Command _allesCommand { get; set; }
+        public Command _monatCommand { get; set; }
+        public Command _tagCommand { get; set; }
 
 
         public MainPageViewModel()
@@ -133,6 +152,8 @@ namespace MauiSaveUpDesktop.ViewModel
             _getCommand = new Command(Get);
             _backCommand = new Command(Back);
             _addCommand = new Command(Add);
+            _tagCommand = new Command(GetTag);
+            _monatCommand = new Command(GetMonat);
         }
 
         public async void Add()
@@ -140,7 +161,7 @@ namespace MauiSaveUpDesktop.ViewModel
             Save.Kategorie = SelectedItem;
             Save.Datum = DateTime.Now.Date;
             await database.Add(Save);
-            
+
             GetToResult();
         }
 
@@ -154,6 +175,7 @@ namespace MauiSaveUpDesktop.ViewModel
         {
             List<Saves> saves = database.Get();
             SaveList = new ObservableCollection<Saves>(saves);
+            GetTotal();
         }
 
         public void Back()
@@ -172,19 +194,54 @@ namespace MauiSaveUpDesktop.ViewModel
                 case "Nahrung":
                     List<Saves> nahr = database.GetByKategorie("Nahrung");
                     SaveList = new ObservableCollection<Saves>(nahr);
+                    GetTotal();
                     break;
                 case "Ausgang":
                     List<Saves> aus = database.GetByKategorie("Ausgang");
                     SaveList = new ObservableCollection<Saves>(aus);
+                    GetTotal();
                     break;
                 case "Elektronik":
                     List<Saves> ele = database.GetByKategorie("Elektronik");
                     SaveList = new ObservableCollection<Saves>(ele);
-                    break; 
-
+                    GetTotal();
+                    break;
             }
-           
-            
+        }
+
+        public void GetTotal()
+        {
+            BetragTotal = 0;
+            foreach (var save in SaveList)
+            {
+                BetragTotal += save.Betrag;
+            }
+        }
+
+        public void GetTag()
+        {
+            foreach (var save in SaveList)
+            {
+                if (save.Datum == DateTime.Now.Date)
+                {
+                    SaveListTemp.Add(save);
+                }
+            }
+            SaveList = new ObservableCollection<Saves>(SaveListTemp);
+            GetTotal();
+        }
+
+        public void GetMonat()
+        {
+            foreach (var save in SaveList)
+            {
+                if (save.Datum.Month == DateTime.Now.Month)
+                {
+                    SaveListTemp.Add(save);
+                }
+            }
+            SaveList = new ObservableCollection<Saves>(SaveListTemp);
+            GetTotal();
         }
 
 
