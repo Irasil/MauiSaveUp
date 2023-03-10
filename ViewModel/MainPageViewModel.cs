@@ -180,7 +180,7 @@ namespace MauiSaveUpDesktop.ViewModel
                 case "Elektronik":
                     List<Saves> ele = database.GetByKategorie("Elektronik");
                     SaveList = new ObservableCollection<Saves>(ele);
-                    break;
+                    break; 
             }
            
             
