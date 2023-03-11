@@ -22,8 +22,18 @@ namespace MauiSaveUpDesktop.ViewModel
 
     public class MainPageViewModel : ViewModelBase
     {
+        
         public Databases database = new Databases();
         List<Saves> SaveListTemp = new List<Saves>();
+
+
+        public bool _loading;
+        public bool Loading
+        {
+            get { return _loading; }
+            set { SetProperty(ref _loading, value); }
+        }
+
         public Saves _save = new();
         public Saves Save
         {
@@ -167,12 +177,14 @@ namespace MauiSaveUpDesktop.ViewModel
 
         public void GetToResult()
         {
+            Loading = true;
             Get();
             Shell.Current.GoToAsync("Resultate");
         }
 
         public void Get()
         {
+            SaveListTemp = new List<Saves>();
             List<Saves> saves = database.Get();
             SaveList = new ObservableCollection<Saves>(saves);
             GetTotal();
@@ -186,6 +198,7 @@ namespace MauiSaveUpDesktop.ViewModel
 
         public void PickerChanged()
         {
+            SaveListTemp = new List<Saves>();
             switch (_selectedItem)
             {
                 case "Alles":
@@ -216,23 +229,29 @@ namespace MauiSaveUpDesktop.ViewModel
             {
                 BetragTotal += save.Betrag;
             }
+            double roundedValue = (double)Math.Round(BetragTotal, 2, MidpointRounding.AwayFromZero);
+
+            BetragTotal = (double)Math.Round(roundedValue * 20) / 20;
         }
 
         public void GetTag()
         {
+            PickerChanged();
             foreach (var save in SaveList)
             {
-                if (save.Datum == DateTime.Now.Date)
+                if (save.Datum.Day == DateTime.Now.Date.Day)
                 {
                     SaveListTemp.Add(save);
                 }
             }
+            
             SaveList = new ObservableCollection<Saves>(SaveListTemp);
             GetTotal();
         }
 
         public void GetMonat()
         {
+            PickerChanged();
             foreach (var save in SaveList)
             {
                 if (save.Datum.Month == DateTime.Now.Month)

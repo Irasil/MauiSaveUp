@@ -6,7 +6,7 @@
     <VerticalStackLayout Spacing="25"
             Padding="30,0">
 
-        <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>
+        <Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>
 
         <Border>
             <ScrollView HeightRequest="400" >
@@ -25,12 +25,12 @@
                                     </Grid.RowDefinitions>
                                     <Label Text="{Binding ArtikelName}"
                                    Margin="5" />
-                                    <Label Text="{Binding Betrag , StringFormat='{}{0} CHF'}"
+                                    <Label Text="{Binding Betrag , StringFormat='{}{0:0.00} CHF'}"
                                    Grid.Column="1"
                                    HorizontalTextAlignment="End"
                                    FontAttributes="Bold"
                                    Margin="5,5,10,5" />
-                                    <Label Text="{Binding Datum, StringFormat='{}{0:MM/dd/yyyy}'}"
+                                    <Label Text="{Binding Datum, StringFormat='{}{0:dd/MM/yyyy}'}"
                                    FontSize="8"
                                    Margin="5,0,0,0"
                                    Grid.Row="1"></Label>
@@ -68,7 +68,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Text="Alles" Grid.Column="0" Margin="10,10,0,10"></Button>
+            <Button Text="Alles" Command="{Binding _getCommand}" Grid.Column="0" Margin="10,10,0,10"></Button>
             <Button Text="Monat"
                     Command="{Binding _monatCommand}"
                     Grid.Column="1" Margin="10"></Button>

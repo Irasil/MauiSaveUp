@@ -16,6 +16,7 @@ public partial class MainPage : ContentPage
         Betrag.Text = null;
         Name.Text = string.Empty;
         MyPicker.SelectedIndex = 0;
+        Loader.IsRunning = false;
     }
 }
 

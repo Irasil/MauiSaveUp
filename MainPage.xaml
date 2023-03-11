@@ -1,12 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+
+    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiSaveUpDesktop.MainPage">
+             x:Class="MauiSaveUpDesktop.MainPage"
+             >
+    <Grid>
 
     <ScrollView>
+        
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0">
+            
 
             <Image
                 Source="logo.png"
@@ -26,16 +31,29 @@
             <Entry x:Name="Betrag" Text="{Binding Save.Betrag, Mode=OneWayToSource}"
                    Keyboard="Numeric"
                    Placeholder="Preis" />
+            
             <Button
                 x:Name="ErfasseneBtn"
                 Text="Erfassen"
-                Command="{Binding _addCommand}" />
+                Command="{Binding _addCommand}" 
+                IsEnabled="{Binding !Loading}"/>
             <Button
                 x:Name="ResultateBtn"
-                Text="Resultate"
-                Command="{Binding _getToResultCommand}" />
-
+                Text="{Binding Loading, Converter={StaticResource BoolToStringConverter}}"
+                Command="{Binding _getToResultCommand}" 
+                IsEnabled="{Binding Loading, Converter={StaticResource InverseBooleanConverter}}"/>
         </VerticalStackLayout>
+        
+        
     </ScrollView>
+        <AbsoluteLayout >
+            <ActivityIndicator Color="CadetBlue" IsRunning="{Binding Loading, Mode=TwoWay}"
+                               AbsoluteLayout.LayoutBounds="0.5,0.5,50,50" 
+                                 AbsoluteLayout.LayoutFlags="PositionProportional"                                  
+                                 ZIndex="1" 
+                                   x:Name="Loader"/>
+        </AbsoluteLayout>
+
+    </Grid>
 
 </ContentPage>

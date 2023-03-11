@@ -17,7 +17,7 @@ namespace MauiSaveUpDesktop.Database
 {
     public class Databases
     {
-        public string _dbPath = "https://saveup-app-20230308224317.whitebay-b0072808.eastus.azurecontainerapps.io/SaveUp";
+        public string _dbPath = "https://saveupapi.azurewebsites.net/SaveUp";
 
 
         public List<Saves> Get()
@@ -28,6 +28,7 @@ namespace MauiSaveUpDesktop.Database
                 {
                     client.Timeout = TimeSpan.FromSeconds(900);
                     var content = client.GetStringAsync(_dbPath).Result;
+                    string lol = "";
 
                     return JsonConvert.DeserializeObject<List<Saves>>(content);
                 }

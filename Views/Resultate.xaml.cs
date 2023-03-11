@@ -10,7 +10,7 @@ public partial class Resultate : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = SharedData.Instance.Data;
-        MyPicker.SelectedIndex = 0; 
+        MyPickerResult.SelectedIndex = 0; 
 	}
     //protected override async void OnAppearing()
     //{       
