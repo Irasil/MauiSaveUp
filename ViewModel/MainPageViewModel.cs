@@ -2,6 +2,7 @@
 using MauiSaveUpDesktop.Database;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace MauiSaveUpDesktop.ViewModel
 {
@@ -48,20 +49,31 @@ namespace MauiSaveUpDesktop.ViewModel
             }
         }
 
-        public string _selectedItem { get; set; }
+        public string _selectedItemErfassen { get; set; }
 
-        public string SelectedItem
+        public string SelectedItemErfassen
         {
-            get { return _selectedItem; }
+            get { return _selectedItemErfassen; }
             set
             {
-                if (_selectedItem != value)
+                if (_selectedItemErfassen != value)
                 {
-                    _selectedItem = value;
-                    OnPropertyChanged(nameof(SelectedItem));
-                    //PickerChanged();
+                    _selectedItemErfassen = value;
+                    OnPropertyChanged(nameof(SelectedItemErfassen));                    
+                }
+            }
+        }
+        public string _selectedItemResultate { get; set; }
 
-
+        public string SelectedItemResultate
+        {
+            get { return _selectedItemResultate; }
+            set
+            {
+                if (_selectedItemResultate != value)
+                {
+                    _selectedItemResultate = value;
+                    OnPropertyChanged(nameof(SelectedItemResultate));
                 }
             }
         }
@@ -155,31 +167,44 @@ namespace MauiSaveUpDesktop.ViewModel
         public Command _monatCommand { get; set; }
         public Command _tagCommand { get; set; }
 
-
+        
         public MainPageViewModel()
         {
+            
             _getToResultCommand = new Command(GetToResult);
             _getCommand = new Command(Get);
             _backCommand = new Command(Back);
             _addCommand = new Command(Add);
             _tagCommand = new Command(GetTag);
             _monatCommand = new Command(GetMonat);
+            _allesCommand = new Command(GetAlles);
         }
+      
+
+       
 
         public async void Add()
         {
-            Save.Kategorie = SelectedItem;
-            Save.Datum = DateTime.Now.Date;
-            await database.Add(Save);
-
-            GetToResult();
+            if (Save.Betrag != 0  && !String.IsNullOrWhiteSpace(Save.ArtikelName))
+            {
+                Save.Kategorie = SelectedItemErfassen;
+                Save.Datum = DateTime.Now.Date;
+                await database.Add(Save);
+                GetToResult();
+            }else
+            {
+               await App.Current.MainPage.DisplayAlert("Fehler", "Bitte füllen Sie alle Felder aus", "OK");
+            }           
         }
 
-        public void GetToResult()
+      
+
+        public async void GetToResult()
         {
             Loading = true;
             Get();
-            Shell.Current.GoToAsync("Resultate");
+            await Shell.Current.GoToAsync("Resultate");
+            Loading = false;
         }
 
         public void Get()
@@ -192,14 +217,13 @@ namespace MauiSaveUpDesktop.ViewModel
 
         public void Back()
         {
-            int lol = SelectedIndex;
             Shell.Current.GoToAsync("..");
         }
 
         public void PickerChanged()
         {
             SaveListTemp = new List<Saves>();
-            switch (_selectedItem)
+            switch (_selectedItemResultate)
             {
                 case "Alles":
                     Get();
@@ -221,6 +245,8 @@ namespace MauiSaveUpDesktop.ViewModel
                     break;
             }
         }
+
+        
 
         public void GetTotal()
         {
@@ -262,6 +288,23 @@ namespace MauiSaveUpDesktop.ViewModel
             SaveList = new ObservableCollection<Saves>(SaveListTemp);
             GetTotal();
         }
+
+        public void GetAlles()
+        {
+            Loading = true;
+            PickerChanged();
+            foreach (var save in SaveList)
+            {
+                if (save.Kategorie == _selectedItemResultate || _selectedItemResultate == "Alles")
+                {
+                    SaveListTemp.Add(save);
+                }
+            }
+            SaveList = new ObservableCollection<Saves>(SaveListTemp);
+            GetTotal();
+            Loading = false;
+        }
+
 
 
     }

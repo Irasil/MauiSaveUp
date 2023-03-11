@@ -19,7 +19,7 @@
                 HeightRequest="200"
                 HorizontalOptions="Center" />
 
-            <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding KategorieErfassen}"/>
+            <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItemErfassen, Mode=TwoWay}"  ItemsSource="{Binding KategorieErfassen}"/>
 
             <Label Text="Artikelname" />
 
@@ -35,13 +35,13 @@
             <Button
                 x:Name="ErfasseneBtn"
                 Text="Erfassen"
-                Command="{Binding _addCommand}" 
-                IsEnabled="{Binding !Loading}"/>
+                Command="{Binding _addCommand, Mode=TwoWay}" 
+               />
             <Button
                 x:Name="ResultateBtn"
-                Text="{Binding Loading, Converter={StaticResource BoolToStringConverter}}"
+                Text="Resultate"
                 Command="{Binding _getToResultCommand}" 
-                IsEnabled="{Binding Loading, Converter={StaticResource InverseBooleanConverter}}"/>
+                />
         </VerticalStackLayout>
         
         

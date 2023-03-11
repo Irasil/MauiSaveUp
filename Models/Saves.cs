@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace MauiSaveUpDesktop.Models
         public float Betrag { get; set; }
         public string Kategorie { get; set; }
         public DateTime Datum { get; set; }
+        public Action<object, PropertyChangedEventArgs> PropertyChanged { get; internal set; }
     }
 }
 

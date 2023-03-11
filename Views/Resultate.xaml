@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiSaveUpDesktop.Views.Resultate"
              Title="Resultate">
+
+    <Grid>
     <VerticalStackLayout Spacing="25"
             Padding="30,0">
 
-        <Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>
+        <Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItemResultate, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>
 
         <Border>
             <ScrollView HeightRequest="400" >
@@ -68,7 +70,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Text="Alles" Command="{Binding _getCommand}" Grid.Column="0" Margin="10,10,0,10"></Button>
+            <Button Text="Alles" Command="{Binding _allesCommand}" Grid.Column="0" Margin="10,10,0,10"></Button>
             <Button Text="Monat"
                     Command="{Binding _monatCommand}"
                     Grid.Column="1" Margin="10"></Button>
@@ -79,4 +81,13 @@
 
         <Button Text="Zurück" Command="{Binding _backCommand}" />
     </VerticalStackLayout>
+
+    <AbsoluteLayout >
+        <ActivityIndicator Color="CadetBlue" IsRunning="{Binding Loading, Mode=TwoWay}"
+                               AbsoluteLayout.LayoutBounds="0.5,0.5,50,50" 
+                                 AbsoluteLayout.LayoutFlags="PositionProportional"                                  
+                                 ZIndex="1" 
+                                   x:Name="Loader"/>
+    </AbsoluteLayout>
+    </Grid>
 </ContentPage>
