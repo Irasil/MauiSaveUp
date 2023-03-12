@@ -185,12 +185,15 @@ namespace MauiSaveUpDesktop.ViewModel
 
         public async void Add()
         {
-            if (Save.Betrag != 0  && !String.IsNullOrWhiteSpace(Save.ArtikelName))
+            if (Save.Betrag > 0  && !String.IsNullOrWhiteSpace(Save.ArtikelName))
             {
                 Save.Kategorie = SelectedItemErfassen;
                 Save.Datum = DateTime.Now.Date;
                 await database.Add(Save);
                 GetToResult();
+            }else if(Save.Betrag <= 0 && !String.IsNullOrWhiteSpace(Save.ArtikelName))
+            {
+                await App.Current.MainPage.DisplayAlert("Fehler", "Bitte geben Sie eine positive Zahl ein", "OK");
             }else
             {
                await App.Current.MainPage.DisplayAlert("Fehler", "Bitte füllen Sie alle Felder aus", "OK");
@@ -291,7 +294,6 @@ namespace MauiSaveUpDesktop.ViewModel
 
         public void GetAlles()
         {
-            Loading = true;
             PickerChanged();
             foreach (var save in SaveList)
             {
@@ -302,8 +304,8 @@ namespace MauiSaveUpDesktop.ViewModel
             }
             SaveList = new ObservableCollection<Saves>(SaveListTemp);
             GetTotal();
-            Loading = false;
         }
+            
 
 
 

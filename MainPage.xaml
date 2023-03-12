@@ -18,8 +18,8 @@
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
-
-            <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItemErfassen, Mode=TwoWay}"  ItemsSource="{Binding KategorieErfassen}"/>
+                <Label Text="Kategorie" />
+                <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItemErfassen, Mode=TwoWay}"  ItemsSource="{Binding KategorieErfassen}"/>
 
             <Label Text="Artikelname" />
 
