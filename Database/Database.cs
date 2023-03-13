@@ -72,9 +72,19 @@ namespace MauiSaveUpDesktop.Database
                 content.EnsureSuccessStatusCode();
                 return null;
             }
-
         }
 
+        public async Task<Saves> Delete(Saves nahrung)
+        {
+            using (var client = new HttpClient())
+            {
+                var jsonContent = JsonConvert.SerializeObject(nahrung);
+                var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var respons = await client.DeleteAsync($"{_dbPath}/{nahrung.Id}");
+                respons.EnsureSuccessStatusCode();
+                return null;
+            }
+        }
 
     }
 }

@@ -166,8 +166,9 @@ namespace MauiSaveUpDesktop.ViewModel
         public Command _allesCommand { get; set; }
         public Command _monatCommand { get; set; }
         public Command _tagCommand { get; set; }
+        public Command _deleteCommand { get; set; }
 
-        
+
         public MainPageViewModel()
         {
             
@@ -179,9 +180,16 @@ namespace MauiSaveUpDesktop.ViewModel
             _monatCommand = new Command(GetMonat);
             _allesCommand = new Command(GetAlles);
         }
-      
 
-       
+
+        public ICommand DeleteCommand => new Command<Saves>((saveItem) =>
+        {
+            // Delete the item from the SaveList...
+            SaveList.Remove(saveItem);
+            App.Current.MainPage.DisplayAlert("Erfolg", $" {saveItem.ArtikelName} wurde gelöscht", "OK");
+            Delete(saveItem);
+
+        });
 
         public async void Add()
         {
@@ -305,7 +313,14 @@ namespace MauiSaveUpDesktop.ViewModel
             SaveList = new ObservableCollection<Saves>(SaveListTemp);
             GetTotal();
         }
-            
+
+        public void Delete(Saves saves)
+        {
+            database.Delete(saves);
+            GetToResult();
+        }
+       
+
 
 
 

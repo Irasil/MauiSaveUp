@@ -8,47 +8,60 @@
     <VerticalStackLayout Spacing="25"
             Padding="30,0">
 
-        <Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItemResultate, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>
-
-        <Border>
-            <ScrollView HeightRequest="400" >
-                <ListView x:Name="ListView" ItemsSource="{Binding SaveList}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*" />
-                                        <RowDefinition Height="1*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="{Binding ArtikelName}"
-                                   Margin="5" />
-                                    <Label Text="{Binding Betrag , StringFormat='{}{0:0.00} CHF'}"
-                                   Grid.Column="1"
-                                   HorizontalTextAlignment="End"
-                                   FontAttributes="Bold"
-                                   Margin="5,5,10,5" />
-                                    <Label Text="{Binding Datum, StringFormat='{}{0:dd/MM/yyyy}'}"
-                                   FontSize="8"
-                                   Margin="5,0,0,0"
-                                   Grid.Row="1"></Label>
-                                    <Label Text="{Binding Kategorie}"
-                                   FontSize="8"
-                                   Margin="0,0,6,0"
-                                   Grid.Row="1" Grid.Column="1"
-                                   HorizontalTextAlignment="End"></Label>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollView>
-        </Border>
-        <Border>
+            <Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItemResultate, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>
+            <Border>
+                <ScrollView HeightRequest="400">
+                    <ListView x:Name="ListView" ItemsSource="{Binding SaveList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <SwipeView>
+                                        <SwipeView.RightItems>
+                                            <SwipeItems >
+                                                <SwipeItem Text="Delete"
+                                               IconImageSource="delete.png"
+                                               BackgroundColor="Red"
+                                               Command="{Binding BindingContext.DeleteCommand, Source={x:Reference ListView}}"
+                                               CommandParameter="{Binding .}" />
+                                            </SwipeItems>
+                                        </SwipeView.RightItems>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="2*" />
+                                                <RowDefinition Height="1*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Text="{Binding ArtikelName}"
+                                               Margin="5"
+                                               HorizontalOptions="StartAndExpand" />
+                                            <Label Text="{Binding Betrag , StringFormat='{}{0:0.00} CHF'}"
+                                               Grid.Column="1"
+                                               HorizontalTextAlignment="End"
+                                               FontAttributes="Bold"
+                                               Margin="5,5,10,5" />
+                                            <Label Text="{Binding Datum, StringFormat='{}{0:dd/MM/yyyy}'}"
+                                               FontSize="8"
+                                               Margin="5,0,0,0"
+                                               Grid.Row="1" 
+                                               HorizontalOptions="StartAndExpand"/>
+                                            <Label Text="{Binding Kategorie}"
+                                               FontSize="8"
+                                               Margin="0,0,6,0"
+                                               Grid.Row="1"
+                                               Grid.Column="1"
+                                               HorizontalTextAlignment="End" />
+                                        </Grid>
+                                    </SwipeView>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </Border>
+            <Border>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
