@@ -19,7 +19,10 @@ namespace MauiSaveUpDesktop.Database
     {
         public string _dbPath = "https://saveupapi.azurewebsites.net/SaveUp";
 
-
+        /// <summary>
+        /// Alle Daten von der Datenbank
+        /// </summary>
+        /// <returns></returns>
         public List<Saves> Get()
         {
             try
@@ -32,9 +35,15 @@ namespace MauiSaveUpDesktop.Database
                 }
 
             }
-            catch { return null; }
+            catch { App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
+            
         }
 
+        /// <summary>
+        /// Alle Daten von der Datenbank nach Kategorie
+        /// </summary>
+        /// <param name="kategorie"></param>
+        /// <returns></returns>
         public List<Saves> GetByKategorie(string kategorie)
         {
             try
@@ -44,6 +53,7 @@ namespace MauiSaveUpDesktop.Database
                     client.Timeout = TimeSpan.FromSeconds(900);
                     var content = client.GetStringAsync(_dbPath).Result;
                     var list = JsonConvert.DeserializeObject<List<Saves>>(content);
+                    
 
                     List<Saves> saves = new();
                     foreach (var item in list)
@@ -57,31 +67,48 @@ namespace MauiSaveUpDesktop.Database
                 }
 
             }
-            catch { return null; }
+            catch { App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
         }
-        public async Task<Saves> Add(Saves nahrung)
+        
+        /// <summary>
+        /// Eintrag in der Datenbank über die API speichern
+        /// </summary>
+        /// <param name="eintrag">Neuer Eintrag</param>
+        /// <returns></returns>
+        public async Task<Saves> Add(Saves eintrag)
         {
-
-            using (var client = new HttpClient())
+            try
             {
-                var jsonContent = JsonConvert.SerializeObject(nahrung);
-                var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-                var content = await client.PostAsync(_dbPath, stringContent);
-                content.EnsureSuccessStatusCode();
-                return null;
+                using (var client = new HttpClient())
+                {
+                    var jsonContent = JsonConvert.SerializeObject(eintrag);
+                    var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                    var content = await client.PostAsync(_dbPath, stringContent);
+                    content.EnsureSuccessStatusCode();
+                    return null;
+                }
             }
+            catch { App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
         }
-
-        public async Task<Saves> Delete(Saves nahrung)
+        
+        /// <summary>
+        /// Eintrag von der Datenbank über die API löschen
+        /// </summary>
+        /// <param name="eintrag"></param>
+        /// <returns></returns>
+        public async Task<Saves> Delete(Saves eintrag)
         {
-            using (var client = new HttpClient())
+            try
             {
-                var jsonContent = JsonConvert.SerializeObject(nahrung);
-                var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-                var respons = await client.DeleteAsync($"{_dbPath}/{nahrung.Id}");
-                respons.EnsureSuccessStatusCode();
-                return null;
-            }
+                using (var client = new HttpClient())
+                {
+                    var jsonContent = JsonConvert.SerializeObject(eintrag);
+                    var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                    var respons = await client.DeleteAsync($"{_dbPath}/{eintrag.Id}");
+                    respons.EnsureSuccessStatusCode();
+                    return null;
+                }
+            }catch { App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
         }
 
     }
