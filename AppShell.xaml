@@ -3,7 +3,6 @@
     x:Class="MauiSaveUpDesktop.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MauiSaveUpDesktop"
     xmlns:view="clr-namespace:MauiSaveUpDesktop.Views"
     Shell.FlyoutBehavior="Disabled">
 
@@ -11,7 +10,7 @@
         <Tab Title="Home" Icon="{StaticResource IconOne}">
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate view:MainPage}"
         Route="MainPage" />
         </Tab>
         <Tab Title="Resultate" Icon="{StaticResource IconTwo}">

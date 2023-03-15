@@ -1,6 +1,6 @@
 ﻿using MauiSaveUpDesktop.ViewModel;
 
-namespace MauiSaveUpDesktop;
+namespace MauiSaveUpDesktop.Views;
 
 public partial class MainPage : ContentPage
 {
