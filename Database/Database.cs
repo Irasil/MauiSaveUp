@@ -28,8 +28,6 @@ namespace MauiSaveUpDesktop.Database
                 {
                     client.Timeout = TimeSpan.FromSeconds(900);
                     var content = client.GetStringAsync(_dbPath).Result;
-                    string lol = "";
-
                     return JsonConvert.DeserializeObject<List<Saves>>(content);
                 }
 

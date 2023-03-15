@@ -6,6 +6,10 @@ using System.Windows.Input;
 
 namespace MauiSaveUpDesktop.ViewModel
 {
+
+    /// <summary>
+    /// Klasse, um die Daten zwischen den Views zu teilen
+    /// </summary>
     public class SharedData
     {
 
@@ -21,21 +25,25 @@ namespace MauiSaveUpDesktop.ViewModel
         }
     }
 
+    /// <summary>
+    /// ViewModel für die MainPage und ResultatePage
+    /// </summary>
     public class MainPageViewModel : ViewModelBase
     {
-        
+
+        #region Properties
         public Databases database = new Databases();
         List<Saves> SaveListTemp = new List<Saves>();
 
 
-        public bool _loading;
+        private bool _loading;
         public bool Loading
         {
             get { return _loading; }
             set { SetProperty(ref _loading, value); }
         }
 
-        public Saves _save = new();
+        private Saves _save = new();
         public Saves Save
         {
             get { return _save; }
@@ -49,8 +57,7 @@ namespace MauiSaveUpDesktop.ViewModel
             }
         }
 
-        public string _selectedItemErfassen { get; set; }
-
+        private string _selectedItemErfassen;
         public string SelectedItemErfassen
         {
             get { return _selectedItemErfassen; }
@@ -59,12 +66,11 @@ namespace MauiSaveUpDesktop.ViewModel
                 if (_selectedItemErfassen != value)
                 {
                     _selectedItemErfassen = value;
-                    OnPropertyChanged(nameof(SelectedItemErfassen));                    
+                    OnPropertyChanged(nameof(SelectedItemErfassen));
                 }
             }
         }
-        public string _selectedItemResultate { get; set; }
-
+        private string _selectedItemResultate;
         public string SelectedItemResultate
         {
             get { return _selectedItemResultate; }
@@ -77,7 +83,7 @@ namespace MauiSaveUpDesktop.ViewModel
                 }
             }
         }
-        public ObservableCollection<Saves> _savesList { get; set; }
+        private ObservableCollection<Saves> _savesList;
         public ObservableCollection<Saves> SaveList
         {
             get { return _savesList; }
@@ -91,13 +97,7 @@ namespace MauiSaveUpDesktop.ViewModel
             }
         }
 
-        public string[] _kategorieErfassen { get; set; } = new string[]
-       {
-            "Nahrung",
-            "Ausgang",
-            "Elektronik"
-       };
-
+        public string[] _kategorieErfassen = new string[] { "Nahrung","Ausgang","Elektronik"};
         public string[] KategorieErfassen
         {
             get { return _kategorieErfassen; }
@@ -107,14 +107,7 @@ namespace MauiSaveUpDesktop.ViewModel
                 OnPropertyChanged(nameof(KategorieErfassen));
             }
         }
-        public string[] _kategorieResultate { get; set; } = new string[]
-      {
-            "Alles",
-            "Nahrung",
-            "Ausgang",
-            "Elektronik"
-      };
-
+        public string[] _kategorieResultate { get; set; } = new string[] { "Alles", "Nahrung", "Ausgang", "Elektronik" };
         public string[] KategorieResultate
         {
             get
@@ -130,7 +123,6 @@ namespace MauiSaveUpDesktop.ViewModel
         }
 
         private int _selectedIndex;
-
         public int SelectedIndex
         {
             get => _selectedIndex;
@@ -144,7 +136,6 @@ namespace MauiSaveUpDesktop.ViewModel
                 }
             }
         }
-
         private double _betragTotal;
         public double BetragTotal
         {
@@ -167,11 +158,14 @@ namespace MauiSaveUpDesktop.ViewModel
         public Command _monatCommand { get; set; }
         public Command _tagCommand { get; set; }
         public Command _deleteCommand { get; set; }
+        #endregion
 
-
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
         public MainPageViewModel()
         {
-            
+
             _getToResultCommand = new Command(GetToResult);
             _getCommand = new Command(Get);
             _backCommand = new Command(Back);
@@ -181,7 +175,9 @@ namespace MauiSaveUpDesktop.ViewModel
             _allesCommand = new Command(GetAlles);
         }
 
-
+        /// <summary>
+        /// Methode, um den geswipten Eintrag zu löschen
+        /// </summary>
         public ICommand DeleteCommand => new Command<Saves>((saveItem) =>
         {
             // Delete the item from the SaveList...
@@ -191,25 +187,31 @@ namespace MauiSaveUpDesktop.ViewModel
 
         });
 
+        /// <summary>
+        /// Methode, um einen neuen Eintrag zu erfassen
+        /// </summary>
         public async void Add()
         {
-            if (Save.Betrag > 0  && !String.IsNullOrWhiteSpace(Save.ArtikelName))
+            if (Save.Betrag > 0 && !String.IsNullOrWhiteSpace(Save.ArtikelName))
             {
                 Save.Kategorie = SelectedItemErfassen;
                 Save.Datum = DateTime.Now.Date;
                 await database.Add(Save);
                 GetToResult();
-            }else if(Save.Betrag <= 0 && !String.IsNullOrWhiteSpace(Save.ArtikelName))
+            }
+            else if (Save.Betrag <= 0 && !String.IsNullOrWhiteSpace(Save.ArtikelName))
             {
                 await App.Current.MainPage.DisplayAlert("Fehler", "Bitte geben Sie eine positive Zahl ein", "OK");
-            }else
+            }
+            else
             {
-               await App.Current.MainPage.DisplayAlert("Fehler", "Bitte füllen Sie alle Felder aus", "OK");
-            }           
+                await App.Current.MainPage.DisplayAlert("Fehler", "Bitte füllen Sie alle Felder aus", "OK");
+            }
         }
 
-      
-
+        /// <summary>
+        /// Methode, um auf der ResultatePage alle Einträge anzuzeigen
+        /// </summary>
         public async void GetToResult()
         {
             Loading = true;
@@ -218,6 +220,9 @@ namespace MauiSaveUpDesktop.ViewModel
             Loading = false;
         }
 
+        /// <summary>
+        /// Methode, um die ListView zu aktualisieren
+        /// </summary>
         public void Get()
         {
             SaveListTemp = new List<Saves>();
@@ -226,11 +231,17 @@ namespace MauiSaveUpDesktop.ViewModel
             GetTotal();
         }
 
+        /// <summary>
+        /// Zurück zu der MainPage
+        /// </summary>
         public void Back()
         {
             Shell.Current.GoToAsync("..");
         }
 
+        /// <summary>
+        /// Methode, um die Daten der entsprechenden Kategorie anzuzeigen
+        /// </summary>
         public void PickerChanged()
         {
             SaveListTemp = new List<Saves>();
@@ -257,8 +268,9 @@ namespace MauiSaveUpDesktop.ViewModel
             }
         }
 
-        
-
+        /// <summary>
+        /// Methode um das Tatal auszurechnen
+        /// </summary>
         public void GetTotal()
         {
             BetragTotal = 0;
@@ -271,6 +283,9 @@ namespace MauiSaveUpDesktop.ViewModel
             BetragTotal = (double)Math.Round(roundedValue * 20) / 20;
         }
 
+        /// <summary>
+        /// Alle Einträge des momentanen Tages anzeigen
+        /// </summary>
         public void GetTag()
         {
             PickerChanged();
@@ -281,11 +296,14 @@ namespace MauiSaveUpDesktop.ViewModel
                     SaveListTemp.Add(save);
                 }
             }
-            
+
             SaveList = new ObservableCollection<Saves>(SaveListTemp);
             GetTotal();
         }
 
+        /// <summary>
+        /// Alle Einträge des momentanen Monats anzeigen
+        /// </summary>
         public void GetMonat()
         {
             PickerChanged();
@@ -300,6 +318,9 @@ namespace MauiSaveUpDesktop.ViewModel
             GetTotal();
         }
 
+        /// <summary>
+        /// Alle Einträge Alle einträge der bestimmten Kategorie Anzeigen
+        /// </summary>
         public void GetAlles()
         {
             PickerChanged();
@@ -314,12 +335,16 @@ namespace MauiSaveUpDesktop.ViewModel
             GetTotal();
         }
 
-        public void Delete(Saves saves)
+        /// <summary>
+        /// Eintrag löschen
+        /// </summary>
+        /// <param name="saves">Das zulöschende Objekt</param>
+        public async void Delete(Saves saves)
         {
-            database.Delete(saves);
+            await database.Delete(saves);
             GetToResult();
         }
-       
+
 
 
 
