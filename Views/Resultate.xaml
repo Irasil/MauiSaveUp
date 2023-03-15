@@ -3,6 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiSaveUpDesktop.Views.Resultate"
              Title="Resultate">
+    <!--<ContentPage.Resources>
+        <Style TargetType="ListView">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>-->
 
     <Grid>
     <VerticalStackLayout Spacing="25"
@@ -11,7 +28,7 @@
             <Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItemResultate, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>
             <Border>
                 <ScrollView HeightRequest="400">
-                    <ListView x:Name="ListView" ItemsSource="{Binding SaveList}">
+                    <ListView x:Name="ListView" ItemsSource="{Binding SaveList}" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
