@@ -182,7 +182,6 @@ namespace MauiSaveUpDesktop.ViewModel
         {
             // Delete the item from the SaveList...
             SaveList.Remove(saveItem);
-            App.Current.MainPage.DisplayAlert("Erfolg", $" {saveItem.ArtikelName} wurde gelöscht", "OK");
             Delete(saveItem);
 
         });
@@ -236,7 +235,8 @@ namespace MauiSaveUpDesktop.ViewModel
         /// </summary>
         public void Back()
         {
-            Shell.Current.GoToAsync("..");
+            //Shell.Current.GoToAsync("..");
+            Shell.Current.GoToAsync("MainPage");
         }
 
         /// <summary>
@@ -341,7 +341,9 @@ namespace MauiSaveUpDesktop.ViewModel
         /// <param name="saves">Das zulöschende Objekt</param>
         public async void Delete(Saves saves)
         {
+            Loading = true;
             await database.Delete(saves);
+            App.Current.MainPage.DisplayAlert("Erfolg", $" {saves.ArtikelName} wurde erfolgreich gelöscht", "OK");
             GetToResult();
         }
 

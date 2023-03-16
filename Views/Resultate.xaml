@@ -22,10 +22,21 @@
     </ContentPage.Resources>-->
 
     <Grid>
-    <VerticalStackLayout Spacing="25"
+    <VerticalStackLayout Spacing="15"
             Padding="30,0">
 
-            <Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItemResultate, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                <BoxView Color="#3a97f2" Opacity="0.5" CornerRadius="15" HeightRequest="25"
+             IsVisible="true" TranslationX="0" TranslationY="0" Grid.ColumnSpan="2"/>
+                <Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItemResultate, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged" Grid.ColumnSpan="2"/>
+                <Label Text="⬍" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+            </Grid>
+
+            <!--<Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItemResultate, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>-->
             <Border>
                 <ScrollView HeightRequest="400">
                     <ListView x:Name="ListView" ItemsSource="{Binding SaveList}" >
@@ -111,13 +122,12 @@
 
         <Button Text="Zurück" Command="{Binding _backCommand}" />
     </VerticalStackLayout>
-
-    <AbsoluteLayout >
-        <ActivityIndicator Color="CadetBlue" IsRunning="{Binding Loading, Mode=TwoWay}"
+        <AbsoluteLayout >
+            <ActivityIndicator Color="#3a97f2" IsRunning="{Binding Loading, Mode=TwoWay}"
                                AbsoluteLayout.LayoutBounds="0.5,0.5,50,50" 
                                  AbsoluteLayout.LayoutFlags="PositionProportional"                                  
                                  ZIndex="1" 
                                    x:Name="Loader"/>
-    </AbsoluteLayout>
+        </AbsoluteLayout>
     </Grid>
 </ContentPage>

@@ -11,7 +11,7 @@
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate view:MainPage}"
-        Route="MainPage" />
+         />
         </Tab>
         <Tab Title="Resultate" Icon="{StaticResource IconTwo}">
             <ShellContent
