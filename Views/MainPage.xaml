@@ -13,10 +13,9 @@
 
                 <Image
                 Source="logo.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
-                <Label Text="Kategorie" />
+                <Label Text="Kategorie auswählen:" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -28,10 +27,7 @@
                     <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItemErfassen, Mode=TwoWay}" ItemsSource="{Binding KategorieErfassen}" Grid.ColumnSpan="2"/>
                     <Label Text="⬍" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                 </Grid>
-                <!--<Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItemErfassen, Mode=TwoWay}"  ItemsSource="{Binding KategorieErfassen}" />-->
-
                 <Label Text="Artikelname" />
-
                 <Entry x:Name="Name" Text="{Binding Save.ArtikelName, Mode=TwoWay}"
                    Keyboard="Chat"
                    Placeholder="Name" />
@@ -44,6 +40,7 @@
                 <Button
                 x:Name="ErfasseneBtn"
                 Text="Erfassen"
+                Margin="0,40,0,0"
                 Command="{Binding _addCommand, Mode=TwoWay}" 
                />
                 <Button

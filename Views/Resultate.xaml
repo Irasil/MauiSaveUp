@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiSaveUpDesktop.Views.Resultate"
              Title="Resultate">
-
+    <ScrollView>
     <Grid>
         <VerticalStackLayout Spacing="15"
             Padding="30,0">
@@ -19,7 +19,7 @@
                 <Label Text="⬍" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
             </Grid>
             <Border>
-                <ScrollView HeightRequest="400">
+                <ScrollView HeightRequest="450">
                     <ListView x:Name="ListView" ItemsSource="{Binding SaveList}" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -94,14 +94,16 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Text="Alles" Command="{Binding _allesCommand}" Grid.Column="0" Margin="10,10,0,10"></Button>
-                <Button Text="Monat"
+                    <Button Text="Alles" Command="{Binding _allesCommand}" Grid.Column="0" Margin="0,10,5,10" BackgroundColor="{Binding BGAlles}"></Button>
+                    <Button Text="Monat"
                     Command="{Binding _monatCommand}"
-                    Grid.Column="1" Margin="10"></Button>
-                <Button Text="Tag"
+                        BackgroundColor="{Binding BGMonat}"
+                    Grid.Column="1" Margin="5,10,5,10"></Button>
+                    <Button Text="Tag"
                     Command="{Binding _tagCommand}"
-                    Grid.Column="2" Margin="0,10,10,10"></Button>
-            </Grid>
+                        BackgroundColor="{Binding BGTag}"
+                    Grid.Column="2" Margin="5,10,0,10"></Button>
+                </Grid>
 
             <Button Text="Zurück" Command="{Binding _backCommand}" />
         </VerticalStackLayout>
@@ -113,4 +115,5 @@
                                    x:Name="Loader"/>
         </AbsoluteLayout>
     </Grid>
+    </ScrollView>
 </ContentPage>

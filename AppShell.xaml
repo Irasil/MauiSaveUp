@@ -6,19 +6,16 @@
     xmlns:view="clr-namespace:MauiSaveUpDesktop.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <TabBar>
-        <Tab Title="Home" Icon="{StaticResource IconOne}">
+   
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate view:MainPage}"
          />
-        </Tab>
-        <Tab Title="Resultate" Icon="{StaticResource IconTwo}">
-            <ShellContent
-                Title="Settings"
+        
+           <ShellContent
+                Title="Resultate"
                 
                 ContentTemplate="{DataTemplate view:Resultate}"
                  />
-        </Tab>
-    </TabBar>
+     
 </Shell>
