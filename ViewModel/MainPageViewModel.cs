@@ -18,7 +18,7 @@ namespace MauiSaveUpDesktop.ViewModel
         public static SharedData Instance => lazy.Value;
 
         public MainPageViewModel Data { get; set; }
-
+        //public Database data;
         private SharedData()
         {
             Data = new MainPageViewModel();
@@ -160,11 +160,13 @@ namespace MauiSaveUpDesktop.ViewModel
         public Command _deleteCommand { get; set; }
         #endregion
 
+        //private IDataPicker _data;
         /// <summary>
         /// Konstruktor
         /// </summary>
         public MainPageViewModel()
         {
+            //_data = data;
 
             _getToResultCommand = new Command(GetToResult);
             _getCommand = new Command(Get);
@@ -222,10 +224,10 @@ namespace MauiSaveUpDesktop.ViewModel
         /// <summary>
         /// Methode, um die ListView zu aktualisieren
         /// </summary>
-        public void Get()
+        public async void Get()
         {
             SaveListTemp = new List<Saves>();
-            List<Saves> saves = database.Get();
+            List<Saves> saves = await database.Get();
             SaveList = new ObservableCollection<Saves>(saves);
             GetTotal();
         }
@@ -242,7 +244,7 @@ namespace MauiSaveUpDesktop.ViewModel
         /// <summary>
         /// Methode, um die Daten der entsprechenden Kategorie anzuzeigen
         /// </summary>
-        public void PickerChanged()
+        public async void PickerChanged()
         {
             SaveListTemp = new List<Saves>();
             switch (_selectedItemResultate)
@@ -251,17 +253,17 @@ namespace MauiSaveUpDesktop.ViewModel
                     Get();
                     break;
                 case "Nahrung":
-                    List<Saves> nahr = database.GetByKategorie("Nahrung");
+                    List<Saves> nahr = await database.GetByKategorie("Nahrung");
                     SaveList = new ObservableCollection<Saves>(nahr);
                     GetTotal();
                     break;
                 case "Ausgang":
-                    List<Saves> aus = database.GetByKategorie("Ausgang");
+                    List<Saves> aus = await database.GetByKategorie("Ausgang");
                     SaveList = new ObservableCollection<Saves>(aus);
                     GetTotal();
                     break;
                 case "Elektronik":
-                    List<Saves> ele = database.GetByKategorie("Elektronik");
+                    List<Saves> ele = await database.GetByKategorie("Elektronik");
                     SaveList = new ObservableCollection<Saves>(ele);
                     GetTotal();
                     break;

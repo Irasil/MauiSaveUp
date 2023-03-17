@@ -11,6 +11,7 @@ public partial class Resultate : ContentPage
 		InitializeComponent();
 		BindingContext = SharedData.Instance.Data;
         MyPickerResult.SelectedIndex = 0;
+        
     }
 
 

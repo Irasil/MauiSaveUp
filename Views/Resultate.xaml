@@ -3,26 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiSaveUpDesktop.Views.Resultate"
              Title="Resultate">
-    <!--<ContentPage.Resources>
-        <Style TargetType="ListView">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                        Value="LightSkyBlue" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
-    </ContentPage.Resources>-->
 
     <Grid>
-    <VerticalStackLayout Spacing="15"
+        <VerticalStackLayout Spacing="15"
             Padding="30,0">
 
             <Grid Margin="0,10,0,0">
@@ -35,8 +18,6 @@
                 <Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItemResultate, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged" Grid.ColumnSpan="2"/>
                 <Label Text="⬍" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
             </Grid>
-
-            <!--<Picker x:Name="MyPickerResult"  SelectedItem="{Binding SelectedItemResultate, Mode=TwoWay}"  ItemsSource="{Binding KategorieResultate , Mode=TwoWay}" SelectedIndexChanged="MyPicker_SelectedIndexChanged"/>-->
             <Border>
                 <ScrollView HeightRequest="400">
                     <ListView x:Name="ListView" ItemsSource="{Binding SaveList}" >
@@ -62,6 +43,7 @@
                                                 <RowDefinition Height="2*" />
                                                 <RowDefinition Height="1*" />
                                             </Grid.RowDefinitions>
+
                                             <Label Text="{Binding ArtikelName}"
                                                Margin="5"
                                                HorizontalOptions="StartAndExpand" />
@@ -82,6 +64,7 @@
                                                Grid.Column="1"
                                                HorizontalTextAlignment="End" />
                                         </Grid>
+
                                     </SwipeView>
                                 </ViewCell>
                             </DataTemplate>
@@ -90,38 +73,38 @@
                 </ScrollView>
             </Border>
             <Border>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Total:"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Total:"
                        Margin="5" />
-                <Label Text="{Binding BetragTotal , StringFormat='{}{0} CHF'}"
+                    <Label Text="{Binding BetragTotal , StringFormat='{}{0} CHF'}"
                        Grid.Column="1"
                        HorizontalTextAlignment="End"
                        FontAttributes="Bold"
                        Margin="5,5,10,5" />
 
-            </Grid>
-        </Border>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Text="Alles" Command="{Binding _allesCommand}" Grid.Column="0" Margin="10,10,0,10"></Button>
-            <Button Text="Monat"
+                </Grid>
+            </Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Text="Alles" Command="{Binding _allesCommand}" Grid.Column="0" Margin="10,10,0,10"></Button>
+                <Button Text="Monat"
                     Command="{Binding _monatCommand}"
                     Grid.Column="1" Margin="10"></Button>
-            <Button Text="Tag"
+                <Button Text="Tag"
                     Command="{Binding _tagCommand}"
                     Grid.Column="2" Margin="0,10,10,10"></Button>
-        </Grid>
+            </Grid>
 
-        <Button Text="Zurück" Command="{Binding _backCommand}" />
-    </VerticalStackLayout>
+            <Button Text="Zurück" Command="{Binding _backCommand}" />
+        </VerticalStackLayout>
         <AbsoluteLayout >
             <ActivityIndicator Color="#3a97f2" IsRunning="{Binding Loading, Mode=TwoWay}"
                                AbsoluteLayout.LayoutBounds="0.5,0.5,50,50" 

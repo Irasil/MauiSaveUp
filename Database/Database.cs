@@ -23,14 +23,14 @@ namespace MauiSaveUpDesktop.Database
         /// Alle Daten von der Datenbank
         /// </summary>
         /// <returns></returns>
-        public List<Saves> Get()
+        public async Task<List<Saves>> Get()
         {
             try
             {
                 using (var client = new HttpClient())
                 {
                     client.Timeout = TimeSpan.FromSeconds(900);
-                    var content = client.GetStringAsync(_dbPath).Result;
+                    var content = await client.GetStringAsync(_dbPath);
                     return JsonConvert.DeserializeObject<List<Saves>>(content);
                 }
 
@@ -44,14 +44,14 @@ namespace MauiSaveUpDesktop.Database
         /// </summary>
         /// <param name="kategorie"></param>
         /// <returns></returns>
-        public List<Saves> GetByKategorie(string kategorie)
+        public async Task<List<Saves>> GetByKategorie(string kategorie)
         {
             try
             {
                 using (var client = new HttpClient())
                 {
                     client.Timeout = TimeSpan.FromSeconds(900);
-                    var content = client.GetStringAsync(_dbPath).Result;
+                    var content = await client.GetStringAsync(_dbPath);
                     var list = JsonConvert.DeserializeObject<List<Saves>>(content);
                     
 
