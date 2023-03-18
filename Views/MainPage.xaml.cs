@@ -12,7 +12,7 @@ public partial class MainPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        Betrag.Text = null;
+        Betrag1.Text = null;
         Name.Text = string.Empty;
         MyPicker.SelectedIndex = 0;
         Loader.IsRunning = false;

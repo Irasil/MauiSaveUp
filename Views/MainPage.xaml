@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiSaveUpDesktop.Views.MainPage"
-             Title="Home"
+             Title="Home"          
              >
     <Grid>
         <ScrollView>
@@ -27,15 +27,17 @@
                     <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItemErfassen, Mode=TwoWay}" ItemsSource="{Binding KategorieErfassen}" Grid.ColumnSpan="2"/>
                     <Label Text="⬍" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                 </Grid>
-                <Label Text="Artikelname" />
+                <Label Text="Artikelname1" />
                 <Entry x:Name="Name" Text="{Binding Save.ArtikelName, Mode=TwoWay}"
                    Keyboard="Chat"
                    Placeholder="Name" />
                 <Label Text="Preis" />
 
-                <Entry x:Name="Betrag" Text="{Binding Save.Betrag, Mode=OneWayToSource}"
+                <Entry x:Name="Betrag1" Text="{Binding Save.Betrag, Mode=OneWayToSource}"
                    Keyboard="Numeric"
-                   Placeholder="Preis" />
+                   Placeholder="Preis"
+                    />              
+
 
                 <Button
                 x:Name="ErfasseneBtn"

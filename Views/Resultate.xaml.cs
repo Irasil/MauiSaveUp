@@ -11,12 +11,10 @@ public partial class Resultate : ContentPage
         InitializeComponent();
         BindingContext = SharedData.Instance.Data;
         MyPickerResult.SelectedIndex = 0;
+    }    
+
+    private void MyPicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ((MainPageViewModel)BindingContext).PickerChanged();
     }
-
-
-
-private void MyPicker_SelectedIndexChanged(object sender, EventArgs e)
-{
-    ((MainPageViewModel)BindingContext).PickerChanged();
-}
 }
