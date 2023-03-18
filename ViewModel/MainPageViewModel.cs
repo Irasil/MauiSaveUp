@@ -3,6 +3,7 @@ using MauiSaveUpDesktop.Database;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Threading;
 
 namespace MauiSaveUpDesktop.ViewModel
 {
@@ -93,6 +94,19 @@ namespace MauiSaveUpDesktop.ViewModel
                 {
                     _savesList = value;
                     OnPropertyChanged(nameof(SaveList));
+                }
+            }
+        }
+        private ObservableCollection<Saves> _savesListFix;
+        public ObservableCollection<Saves> SaveListFix
+        {
+            get { return _savesListFix; }
+            set
+            {
+                if (_savesListFix != value)
+                {
+                    _savesListFix = value;
+                    OnPropertyChanged(nameof(SaveListFix));
                 }
             }
         }
@@ -224,7 +238,7 @@ namespace MauiSaveUpDesktop.ViewModel
         public ICommand DeleteCommand => new Command<Saves>((saveItem) =>
         {
             // Delete the item from the SaveList...
-            SaveList.Remove(saveItem);
+            SaveListFix.Remove(saveItem);
             Delete(saveItem);
 
         });
@@ -269,7 +283,8 @@ namespace MauiSaveUpDesktop.ViewModel
         {
             SaveListTemp = new ObservableCollection<Saves>();
             List<Saves> saves = database.Get();
-            SaveList = new ObservableCollection<Saves>(saves);
+            SaveListFix = new ObservableCollection<Saves>(saves);
+            SaveList = SaveListFix;
             GetTotal();
         }
 
@@ -297,20 +312,43 @@ namespace MauiSaveUpDesktop.ViewModel
                     break;
                 case "Nahrung":
                     AllesButtonFarbe();
-                    List<Saves> nahr = database.GetByKategorie("Nahrung");
-                    SaveList = new ObservableCollection<Saves>(nahr);
+                    //List<Saves> nahr = database.GetByKategorie("Nahrung");
+                    foreach (Saves save in SaveListFix)
+                    {
+                        if (save.Kategorie == "Nahrung")
+                        {
+                            SaveListTemp.Add(save);
+                        }
+                    }
+                    SaveList = SaveListTemp;
                     GetTotal();
                     break;
                 case "Ausgang":
                     AllesButtonFarbe();
-                    List<Saves> aus = database.GetByKategorie("Ausgang");
-                    SaveList = new ObservableCollection<Saves>(aus);
+                    //List<Saves> aus = database.GetByKategorie("Ausgang");
+                    //SaveList = new ObservableCollection<Saves>(aus);
+                    foreach (Saves save in SaveListFix)
+                    {
+                        if (save.Kategorie == "Ausgang")
+                        {
+                            SaveListTemp.Add(save);
+                        }
+                    }
+                    SaveList = SaveListTemp;
                     GetTotal();
                     break;
                 case "Elektronik":
                     AllesButtonFarbe();
-                    List<Saves> ele = database.GetByKategorie("Elektronik");
-                    SaveList = new ObservableCollection<Saves>(ele);
+                    //List<Saves> ele = database.GetByKategorie("Elektronik");
+                    //SaveList = new ObservableCollection<Saves>(ele);
+                    foreach (Saves save in SaveListFix)
+                    {
+                        if (save.Kategorie == "Elektronik")
+                        {
+                            SaveListTemp.Add(save);
+                        }
+                    }
+                    SaveList = SaveListTemp;
                     GetTotal();
                     break;
             }
@@ -340,13 +378,14 @@ namespace MauiSaveUpDesktop.ViewModel
         /// <summary>
         /// Alle Einträge des momentanen Tages anzeigen
         /// </summary>
-        public void GetTag()
+        public async void GetTag()
         {
+            Loading = true;
+            await Task.Delay(100);
             PickerChanged();
-            BGAlles = Color.FromArgb("#3a97f2");
-            BGMonat = Color.FromArgb("#3a97f2");
-            BGTag = Color.FromRgba("#0553A0");
-            
+            SaveListTemp = new ObservableCollection<Saves>();
+
+
             foreach (var save in SaveList)
             {
                 if (save.Datum.Day == DateTime.Now.Date.Day)
@@ -357,18 +396,23 @@ namespace MauiSaveUpDesktop.ViewModel
 
             SaveList = SaveListTemp;
             GetTotal();
+            BGAlles = Color.FromArgb("#3a97f2");
+            BGMonat = Color.FromArgb("#3a97f2");
+            BGTag = Color.FromRgba("#0553A0");
+            Loading = false;
         }
 
         /// <summary>
         /// Alle Einträge des momentanen Monats anzeigen
         /// </summary>
-        public void GetMonat()
+        public async void GetMonat()
         {
+            Loading = true;
+            await Task.Delay(100);
             PickerChanged();
-            BGTag = Color.FromArgb("#3a97f2");
-            BGAlles = Color.FromArgb("#3a97f2");
-            BGMonat = Color.FromRgba("#0553A0");
-            
+            SaveListTemp = new ObservableCollection<Saves>();
+
+
             foreach (var save in SaveList)
             {
                 if (save.Datum.Month == DateTime.Now.Month)
@@ -376,18 +420,25 @@ namespace MauiSaveUpDesktop.ViewModel
                     SaveListTemp.Add(save);
                 }
             }
-            SaveList = new ObservableCollection<Saves>(SaveListTemp);
+            SaveList = SaveListTemp;
             GetTotal();
+            BGTag = Color.FromArgb("#3a97f2");
+            BGAlles = Color.FromArgb("#3a97f2");
+            BGMonat = Color.FromRgba("#0553A0");
+            Loading = false;
         }
 
         /// <summary>
         /// Alle Einträge Alle einträge der bestimmten Kategorie Anzeigen
         /// </summary>
-        public void GetAlles()
+        public async void GetAlles()
         {
+            Loading = true;
+            await Task.Delay(100);
             PickerChanged();
-            AllesButtonFarbe();
-            
+            SaveListTemp = new ObservableCollection<Saves>();
+
+
             foreach (var save in SaveList)
             {
                 if (save.Kategorie == _selectedItemResultate || _selectedItemResultate == "Alles")
@@ -395,8 +446,10 @@ namespace MauiSaveUpDesktop.ViewModel
                     SaveListTemp.Add(save);
                 }
             }
-            SaveList = new ObservableCollection<Saves>(SaveListTemp);
+            SaveList = SaveListTemp;
             GetTotal();
+            AllesButtonFarbe();
+            Loading = false;
         }
 
         /// <summary>
@@ -407,13 +460,9 @@ namespace MauiSaveUpDesktop.ViewModel
         {
             Loading = true;
             await database.Delete(saves);
-            App.Current.MainPage.DisplayAlert("Erfolg", $" {saves.ArtikelName} wurde erfolgreich gelöscht", "OK");
-            GetToResult();
+            await App.Current.MainPage.DisplayAlert("Erfolg", $" {saves.ArtikelName} wurde erfolgreich gelöscht", "OK");
+            SaveList.Remove(saves);
+            Loading = false;
         }
-
-
-
-
-
     }
 }

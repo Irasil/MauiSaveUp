@@ -88,7 +88,7 @@ namespace MauiSaveUpDesktop.Database
                     return null;
                 }
             }
-            catch { App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
+            catch { await App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
         }
         
         /// <summary>
@@ -108,7 +108,7 @@ namespace MauiSaveUpDesktop.Database
                     respons.EnsureSuccessStatusCode();
                     return null;
                 }
-            }catch { App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
+            }catch { await App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
         }
 
     }

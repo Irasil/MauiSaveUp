@@ -94,14 +94,14 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                    <Button Text="Alles" Command="{Binding _allesCommand}" Grid.Column="0" Margin="0,10,5,10" BackgroundColor="{Binding BGAlles}"></Button>
+                    <Button Text="Alles" Command="{Binding _allesCommand}" Grid.Column="0" Margin="0,10,5,10" Background="{Binding BGAlles}"></Button>
                     <Button Text="Monat"
                     Command="{Binding _monatCommand}"
-                        BackgroundColor="{Binding BGMonat}"
+                        Background="{Binding BGMonat}"
                     Grid.Column="1" Margin="5,10,5,10"></Button>
                     <Button Text="Tag"
                     Command="{Binding _tagCommand}"
-                        BackgroundColor="{Binding BGTag}"
+                        Background="{Binding BGTag}"
                     Grid.Column="2" Margin="5,10,0,10"></Button>
                 </Grid>
 
