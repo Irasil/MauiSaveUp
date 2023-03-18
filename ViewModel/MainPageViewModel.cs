@@ -293,7 +293,7 @@ namespace MauiSaveUpDesktop.ViewModel
         /// </summary>
         public void Back()
         {
-            //Shell.Current.GoToAsync("..");
+            Save.Betrag = 0;
             Shell.Current.GoToAsync("MainPage");
         }
 
@@ -456,6 +456,7 @@ namespace MauiSaveUpDesktop.ViewModel
             await database.Delete(saves);
             await App.Current.MainPage.DisplayAlert("Erfolg", $" {saves.ArtikelName} wurde erfolgreich gelöscht", "OK");
             SaveList.Remove(saves);
+            GetTotal();
             Loading = false;
         }
     }
