@@ -40,37 +40,6 @@ namespace MauiSaveUpDesktop.Database
         }
 
         /// <summary>
-        /// Alle Daten von der Datenbank nach Kategorie
-        /// </summary>
-        /// <param name="kategorie"></param>
-        /// <returns></returns>
-        public List<Saves> GetByKategorie(string kategorie)
-        {
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    client.Timeout = TimeSpan.FromSeconds(900);
-                    var content = client.GetStringAsync(_dbPath).Result;
-                    var list = JsonConvert.DeserializeObject<List<Saves>>(content);
-                    
-
-                    List<Saves> saves = new();
-                    foreach (var item in list)
-                    {
-                        if (item.Kategorie == kategorie)
-                        {
-                            saves.Add(item);
-                        }
-                    }
-                    return saves;
-                }
-
-            }
-            catch { App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
-        }
-        
-        /// <summary>
         /// Eintrag in der Datenbank über die API speichern
         /// </summary>
         /// <param name="eintrag">Neuer Eintrag</param>

@@ -301,8 +301,7 @@ namespace MauiSaveUpDesktop.ViewModel
         /// Methode, um die Daten der entsprechenden Kategorie anzuzeigen
         /// </summary>
         public void PickerChanged()
-        {
-            
+        {            
             SaveListTemp = new ObservableCollection<Saves>();
             switch (_selectedItemResultate)
             {
@@ -312,7 +311,6 @@ namespace MauiSaveUpDesktop.ViewModel
                     break;
                 case "Nahrung":
                     AllesButtonFarbe();
-                    //List<Saves> nahr = database.GetByKategorie("Nahrung");
                     foreach (Saves save in SaveListFix)
                     {
                         if (save.Kategorie == "Nahrung")
@@ -325,8 +323,6 @@ namespace MauiSaveUpDesktop.ViewModel
                     break;
                 case "Ausgang":
                     AllesButtonFarbe();
-                    //List<Saves> aus = database.GetByKategorie("Ausgang");
-                    //SaveList = new ObservableCollection<Saves>(aus);
                     foreach (Saves save in SaveListFix)
                     {
                         if (save.Kategorie == "Ausgang")
@@ -339,8 +335,6 @@ namespace MauiSaveUpDesktop.ViewModel
                     break;
                 case "Elektronik":
                     AllesButtonFarbe();
-                    //List<Saves> ele = database.GetByKategorie("Elektronik");
-                    //SaveList = new ObservableCollection<Saves>(ele);
                     foreach (Saves save in SaveListFix)
                     {
                         if (save.Kategorie == "Elektronik")
