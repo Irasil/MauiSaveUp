@@ -36,7 +36,7 @@
                 <Entry x:Name="Betrag1" Text="{Binding Save.Betrag, Mode=OneWayToSource}"
                    Keyboard="Numeric"
                    Placeholder="Preis"
-                    />              
+                    />
 
 
                 <Button
