@@ -57,7 +57,7 @@
 
                 <Button
                     x:Name="ErfasseneBtn"
-                    Margin="0,40,0,0"
+                    Margin="0,30,0,0"
                     Command="{Binding _addCommand, Mode=TwoWay}"
                     Text="Erfassen" />
                 <Button
