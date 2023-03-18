@@ -1,20 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiSaveUpDesktop.Views.MainPage"
-             Title="Home"          
-             >
+<ContentPage
+    x:Class="MauiSaveUpDesktop.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Home">
     <Grid>
         <ScrollView>
-            <VerticalStackLayout
-            Spacing="20"
-            Padding="30,0">
+            <VerticalStackLayout Padding="30,0" Spacing="20">
 
                 <Image
-                Source="logo.png"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+                    HeightRequest="200"
+                    HorizontalOptions="Center"
+                    Source="logo.png" />
                 <Label Text="Kategorie auswählen:" />
 
                 <Grid>
@@ -22,44 +20,62 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="30" />
                     </Grid.ColumnDefinitions>
-                    <BoxView Color="#3a97f2" Opacity="0.5" CornerRadius="15" HeightRequest="25"
-             IsVisible="true" TranslationX="0" TranslationY="0" Grid.ColumnSpan="2"/>
-                    <Picker x:Name="MyPicker"  SelectedItem="{Binding SelectedItemErfassen, Mode=TwoWay}" ItemsSource="{Binding KategorieErfassen}" Grid.ColumnSpan="2"/>
-                    <Label Text="⬍" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                    <BoxView
+                        Grid.ColumnSpan="2"
+                        CornerRadius="15"
+                        HeightRequest="25"
+                        IsVisible="true"
+                        Opacity="0.5"
+                        TranslationX="0"
+                        TranslationY="0"
+                        Color="#3a97f2" />
+                    <Picker
+                        x:Name="MyPicker"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding KategorieErfassen}"
+                        SelectedItem="{Binding SelectedItemErfassen, Mode=TwoWay}" />
+                    <Label
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center"
+                        Text="⬍"
+                        VerticalTextAlignment="Center" />
                 </Grid>
-                <Label Text="Artikelname1" />
-                <Entry x:Name="Name" Text="{Binding Save.ArtikelName, Mode=TwoWay}"
-                   Keyboard="Chat"
-                   Placeholder="Name" />
+                <Label Text="Artikelname" />
+                <Entry
+                    x:Name="Name"
+                    Keyboard="Chat"
+                    Placeholder="Name"
+                    Text="{Binding Save.ArtikelName, Mode=TwoWay}" />
                 <Label Text="Preis" />
 
-                <Entry x:Name="Betrag1" Text="{Binding Save.Betrag, Mode=OneWayToSource}"
-                   Keyboard="Numeric"
-                   Placeholder="Preis"
-                    />
+                <Entry
+                    x:Name="Betrag1"
+                    Keyboard="Numeric"
+                    Placeholder="Preis"
+                    Text="{Binding Save.Betrag, Mode=OneWayToSource}" />
 
 
                 <Button
-                x:Name="ErfasseneBtn"
-                Text="Erfassen"
-                Margin="0,40,0,0"
-                Command="{Binding _addCommand, Mode=TwoWay}" 
-               />
+                    x:Name="ErfasseneBtn"
+                    Margin="0,40,0,0"
+                    Command="{Binding _addCommand, Mode=TwoWay}"
+                    Text="Erfassen" />
                 <Button
-                x:Name="ResultateBtn"
-                Text="Resultate"
-                Command="{Binding _getToResultCommand}" 
-                />
+                    x:Name="ResultateBtn"
+                    Command="{Binding _getToResultCommand}"
+                    Text="Resultate" />
             </VerticalStackLayout>
 
 
         </ScrollView>
-        <AbsoluteLayout >
-            <ActivityIndicator Color="#3a97f2" IsRunning="{Binding Loading, Mode=TwoWay}"
-                               AbsoluteLayout.LayoutBounds="0.5,0.5,50,50" 
-                                 AbsoluteLayout.LayoutFlags="PositionProportional"                                  
-                                 ZIndex="1" 
-                                   x:Name="Loader"/>
+        <AbsoluteLayout>
+            <ActivityIndicator
+                x:Name="Loader"
+                AbsoluteLayout.LayoutBounds="0.5,0.5,50,50"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                IsRunning="{Binding Loading, Mode=TwoWay}"
+                ZIndex="1"
+                Color="#3a97f2" />
         </AbsoluteLayout>
 
     </Grid>
