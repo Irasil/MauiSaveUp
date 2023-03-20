@@ -37,20 +37,10 @@
                     <Border>
                         <ScrollView HeightRequest="450">
                             <ListView x:Name="ListView" ItemsSource="{Binding SaveList}">
-                                <ListView.ItemTemplate>                                   
-                                    <DataTemplate>                                        
-                                            <ViewCell>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
                                             <StackLayout>
-                                                <VisualStateManager.VisualStateGroups>
-                                                    <VisualStateGroup Name="CommonStates">
-                                                        <VisualState Name="Normal"></VisualState>
-                                                        <VisualState Name="Selected">
-                                                            <VisualState.Setters>
-                                                                <Setter Property="Background" Value="LightSkyBlue"></Setter>
-                                                            </VisualState.Setters>
-                                                        </VisualState>
-                                                    </VisualStateGroup>
-                                                </VisualStateManager.VisualStateGroups>
                                                 <SwipeView>
                                                     <SwipeView.RightItems>
                                                         <SwipeItems>
@@ -97,8 +87,18 @@
                                                             Text="{Binding Kategorie}" />
                                                     </Grid>
                                                 </SwipeView>
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup Name="CommonStates">
+                                                        <VisualState Name="Normal" />
+                                                        <VisualState Name="Selected">
+                                                            <VisualState.Setters>
+                                                                <Setter Property="Background" Value="LightSkyBlue" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
                                             </StackLayout>
-                                        </ViewCell>                                        
+                                        </ViewCell>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -113,7 +113,6 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-
                     </Border>
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroup Name="CommonStates">
