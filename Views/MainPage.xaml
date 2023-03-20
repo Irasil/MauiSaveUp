@@ -13,7 +13,7 @@
                     HeightRequest="200"
                     HorizontalOptions="Center"
                     Source="logo.png" />
-                <Label Text="Kategorie auswählen:" FontAttributes="Bold"/>
+                <Label FontAttributes="Bold" Text="Kategorie auswählen:" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -40,20 +40,21 @@
                         Text="⬍"
                         VerticalTextAlignment="Center" />
                 </Grid>
-                <Label Text="Artikelname" FontAttributes="Bold" />
+                <Label FontAttributes="Bold" Text="Artikelname" />
                 <Entry
                     x:Name="Name"
                     Keyboard="Chat"
+                    MaxLength="25"
                     Placeholder="Name"
                     Text="{Binding Save.ArtikelName, Mode=TwoWay}" />
-                <Label Text="Preis" FontAttributes="Bold" />
+                <Label FontAttributes="Bold" Text="Preis" />
 
                 <Entry
                     x:Name="Betrag1"
                     Keyboard="Numeric"
+                    MaxLength="10"
                     Placeholder="Preis"
                     Text="{Binding Save.Betrag, Mode=OneWayToSource}" />
-
 
                 <Button
                     x:Name="ErfasseneBtn"

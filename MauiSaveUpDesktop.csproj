@@ -15,12 +15,12 @@
 		<ApplicationTitle>SaveUp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.mauisaveupdesktop</ApplicationId>
+		<ApplicationId>com.Irasil.SaveUp</ApplicationId>
 		<ApplicationIdGuid>e1291ded-05f6-4b10-ba6d-a525ce3e9b9e</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationVersion>2</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
@@ -28,6 +28,26 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	</PropertyGroup>
+
+	<!--<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyStore>..\key.keystore</AndroidSigningKeyStore>
+		<AndroidSigningKeyAlias>Maui</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass></AndroidSigningKeyPass>
+		<AndroidSigningStorePass></AndroidSigningStorePass>
+	</PropertyGroup>-->
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+	  <AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyStore>C:\Users\Administrator\Desktop\NeuMauiApp\MauiSaveUpDesktop\key.keystore</AndroidSigningKeyStore>
+		<AndroidSigningKeyAlias>Maui</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>kinder</AndroidSigningKeyPass>
+		<AndroidSigningStorePass>kinder</AndroidSigningStorePass>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -57,6 +77,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="key.keystore" />
 	  <None Remove="Resources\Fonts\fa_solid.ttf" />
 	  <None Remove="Resources\Images\logo.png" />
 	</ItemGroup>
@@ -68,6 +89,10 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="key.keystore" />
 	</ItemGroup>
 
 	<ItemGroup>
