@@ -43,11 +43,11 @@
 	</PropertyGroup>-->
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
-	  <AndroidKeyStore>True</AndroidKeyStore>
-		<AndroidSigningKeyStore>C:\Users\Administrator\Desktop\NeuMauiApp\MauiSaveUpDesktop\key.keystore</AndroidSigningKeyStore>
+	  <AndroidKeyStore>False</AndroidKeyStore>
+		<!--<AndroidSigningKeyStore>C:\Users\Administrator\Desktop\NeuMauiApp\MauiSaveUpDesktop\key.keystore</AndroidSigningKeyStore>
 		<AndroidSigningKeyAlias>Maui</AndroidSigningKeyAlias>
 		<AndroidSigningKeyPass>kinder</AndroidSigningKeyPass>
-		<AndroidSigningStorePass>kinder</AndroidSigningStorePass>
+		<AndroidSigningStorePass>kinder</AndroidSigningStorePass>-->
 	</PropertyGroup>
 
 	<ItemGroup>
