@@ -1,17 +1,6 @@
 ﻿using MauiSaveUpDesktop.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Tasks;
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text.Json;
-using System.Threading.Tasks;
-
 
 namespace MauiSaveUpDesktop.Database
 {
@@ -33,10 +22,8 @@ namespace MauiSaveUpDesktop.Database
                     var content = client.GetStringAsync(_dbPath).Result;
                     return JsonConvert.DeserializeObject<List<Saves>>(content);
                 }
-
             }
             catch { App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
-            
         }
 
         /// <summary>
@@ -59,7 +46,7 @@ namespace MauiSaveUpDesktop.Database
             }
             catch { await App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
         }
-        
+
         /// <summary>
         /// Eintrag von der Datenbank über die API löschen
         /// </summary>
@@ -77,8 +64,8 @@ namespace MauiSaveUpDesktop.Database
                     respons.EnsureSuccessStatusCode();
                     return null;
                 }
-            }catch { await App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
+            }
+            catch { await App.Current.MainPage.DisplayAlert("Fehler", "Es konnte keine Verbindung zum Server hergestellt werden", "OK"); return null; }
         }
-
     }
 }

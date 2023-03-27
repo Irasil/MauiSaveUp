@@ -39,9 +39,9 @@
 
                         <ScrollView HeightRequest="450">
                             <ListView x:Name="ListView" ItemsSource="{Binding SaveList}">
-                                <ListView.ItemTemplate>                                   
-                                    <DataTemplate>                                        
-                                            <ViewCell>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
                                             <StackLayout>
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup Name="CommonStates">
@@ -101,7 +101,6 @@
                                                 </SwipeView>
                                             </StackLayout>
                                         </ViewCell>
-                                        
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -116,7 +115,6 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-
                     </Border>
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroup Name="CommonStates">

@@ -66,8 +66,6 @@
                     Command="{Binding _getToResultCommand}"
                     Text="Resultate" />
             </VerticalStackLayout>
-
-
         </ScrollView>
         <AbsoluteLayout>
             <ActivityIndicator
@@ -78,7 +76,5 @@
                 ZIndex="1"
                 Color="#3a97f2" />
         </AbsoluteLayout>
-
     </Grid>
-
 </ContentPage>

@@ -9,6 +9,7 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         BindingContext = SharedData.Instance.Data;
     }
+
     protected override void OnAppearing()
     {
         base.OnAppearing();
@@ -18,6 +19,3 @@ public partial class MainPage : ContentPage
         Loader.IsRunning = false;
     }
 }
-
-   
-

@@ -6,16 +6,12 @@
     xmlns:view="clr-namespace:MauiSaveUpDesktop.Views"
     Shell.FlyoutBehavior="Disabled">
 
-   
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate view:MainPage}"
-         />
-        
-           <ShellContent
+        ContentTemplate="{DataTemplate view:MainPage}" />
+
+    <ShellContent
                 Title="Resultate"
-                
-                ContentTemplate="{DataTemplate view:Resultate}"
-                 />
-     
+
+                ContentTemplate="{DataTemplate view:Resultate}" />
 </Shell>

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MauiSaveUpDesktop.Models
+﻿namespace MauiSaveUpDesktop.Models
 {
     public class Saves
     {
@@ -17,4 +10,3 @@ namespace MauiSaveUpDesktop.Models
         //public Action<object, PropertyChangedEventArgs> PropertyChanged { get; internal set; }
     }
 }
-
